@@ -1,25 +1,49 @@
+/* Page layout ----------------------------------------------------------- */
 body{
-    margin: 0;
-    height: 100vh;
-    background-color: black;
+    margin: 0;                 /* remove default page margin */
+    height: 100vh;            /* full viewport height so the body fills screen */
+    background-color: black;  /* dark background for contrast with hearts */
+    overflow: hidden;         /* hide overflowing animated elements off-screen */
 }
 
+/*
+  The generated <span> elements act as the animated 'hearts'.
+  - A heart is implemented as a background image on a positioned span.
+  - pointer-events is disabled so the spans don't block mouse events.
+  - left/top + translate(-50%, -50%) centers the image at the assigned
+    left/top coordinates (so it appears centered under the cursor).
+  - The animate keyframes move the hearts upward, fade them out, and
+    rotate their hue for a colorful trail effect.
+*/
 span{
     background: url("https://cdn4.iconfinder.com/data/icons/general-office/91/General_Office_54-512.png");
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    pointer-events: none;
-    background-size: cover;
+    width: 100px;             /* default size; overridden inline by JS */
+    height: 100px;            /* default size; overridden inline by JS */
+    position: absolute;       /* positioned relative to the body */
+    pointer-events: none;     /* don't capture mouse events */
+    background-size: cover;   /* ensure the image covers the element */
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    animation: animate 6s linear; 
+    transform: translate(-50%, -50%); /* center the element at left/top */
+    animation: animate 6s linear;      /* play the float-and-fade animation */ 
 }
 
+/* Keyframes for the floating/fading hearts. The animation:
+   - starts centered at the element's position with full opacity
+   - translates the element very far upwards while fading it out
+   - rotates the hue for a color-shifting effect
+   Note: 6s duration is set on the element; JS removes the element after 3s
+   for a quicker DOM cleanup — you can align these values if desired.
+*/
 @keyframes animate {
-    100%{
-        transform: translate(-50%, -5000%);
+    0%{
+        transform: translate(-50%, -50%);
         opacity: 1;
+        filter: hue-rotate(0);
+    }
+    100% {
+        transform: translate(-50%, -5000%);
+        opacity: 0;
+        filter: hue-rotate(720deg);
     }
 }

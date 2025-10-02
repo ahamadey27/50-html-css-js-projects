@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        Heart Trail Animation
+        - This simple page is a minimal container for the animation.
+        - Styles are provided by `style.css` and behavior by `index.js`.
+        - The <body> element itself is used as the drawing surface for
+          the generated <span> elements (the 'hearts').
+    -->
     <title>Heart Trail Animation</title>
+    <!-- Link to the project's stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <span></span>
+    <!--
+        The script is loaded at the end of <body> so it can safely query
+        and manipulate DOM elements immediately after parsing.
+    -->
     <script src="index.js"></script>
 </body>
 </html>
